@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:newswave/model/news_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'nord_palette.dart';
 
@@ -31,6 +33,14 @@ class _NewsScreenState extends State<NewsScreen>{
     }
   }
 
+  _launchURL(String newsArticleLink) async {
+   final Uri url = Uri.parse(newsArticleLink);
+   if (!await launchUrl(url)) {
+        throw Exception('Could not launch $url');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +63,23 @@ class _NewsScreenState extends State<NewsScreen>{
               getStateOfURL(widget.index),
               Flexible(
                   child: Text(
-                    widget.news?.articles[widget.index]['content'] ?? ""
+                    widget.news?.articles[widget.index]['content'] ?? "",
+                    style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20
+                    ),
                   )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _launchURL(widget.news?.articles[widget.index]['url']);
+                },
+                child: Text(
+                  "Read full article"
+                ),
               )
             ],
           ),

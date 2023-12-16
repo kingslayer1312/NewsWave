@@ -17,13 +17,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final _newsService = NewsService(API_KEY);
   News? _news;
-  String country = "us";
+  String country = "in";
   Future<void> _fetchNews() async {
     try {
       final news = await _newsService.getNews(country);
       setState(() {
         _news = news;
-        print(_news?.articles);
       });
     } catch (e) {
       print("Error fetching news: $e");
