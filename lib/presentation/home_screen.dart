@@ -5,7 +5,7 @@ import 'package:newswave/presentation/news_screen.dart';
 import 'package:newswave/services/news_service.dart';
 import '../key/api_key.dart';
 import '../model/news_model.dart';
-import 'nord_palette.dart';
+import 'themes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   ClipRRect getStateOfURL(int index) {
-    double num = 50;
+    double num = 100;
     if (_news?.articles[index]['urlToImage'] == null) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: NordPalette.nord4,
+      backgroundColor: OceanTheme.darkCyan,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -67,26 +67,42 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 20),
         child: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "NewsWave",
-                style: GoogleFonts.comfortaa(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w400,
-                    color: NordPalette.nord0
-                ),
+              Row(
+                children: [
+                  Text(
+                    "NewsWave",
+                    style: GoogleFonts.comfortaa(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: OceanTheme.black
+                    ),
+                  ),
+
+                ],
               ),
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(5),
                   itemCount: _news?.articles.length,
                   itemBuilder: (BuildContext context, int index) {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
+                          SizedBox(
+                            height: 7,
+                          ),
                           ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll<Color>(NordPalette.nord0)
+                              backgroundColor: MaterialStatePropertyAll<Color>(OceanTheme.richBlack),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      //side: BorderSide(color: Colors.red)
+                                  )
+                              )
                             ),
                               onPressed: () {
                                 Navigator.push(
@@ -95,10 +111,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               },
                               child: Container(
-                                  padding: EdgeInsets.all(15),
+                                  padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: NordPalette.nord0
+                                      //borderRadius: BorderRadius.circular(30),
+                                      color: OceanTheme.richBlack
                                   ),
                                   child: Center(
                                       child: Row(
@@ -113,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   style: GoogleFonts.quicksand(
                                                       fontSize: 15,
                                                       fontWeight: FontWeight.w600,
-                                                    color: NordPalette.nord4
+                                                    color: OceanTheme.timberwolf
                                                   )
                                               )
                                           )

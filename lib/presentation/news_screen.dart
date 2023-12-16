@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:newswave/model/news_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'nord_palette.dart';
+import 'themes.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key, required this.news, required this.index});
@@ -45,7 +45,7 @@ class _NewsScreenState extends State<NewsScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
-        backgroundColor: NordPalette.nord4,
+        backgroundColor: OceanTheme.richBlack,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -55,33 +55,40 @@ class _NewsScreenState extends State<NewsScreen>{
         ),
         body: Padding(
           padding: EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 20),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              getStateOfURL(widget.index),
-              Flexible(
-                  child: Text(
-                    widget.news?.articles[widget.index]['content'] ?? "",
-                    style: GoogleFonts.quicksand(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20
-                    ),
-                  )
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _launchURL(widget.news?.articles[widget.index]['url']);
-                },
-                child: Text(
-                  "Read full article"
+          child: Container(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              )
-            ],
+                getStateOfURL(widget.index),
+                Flexible(
+                    child: Text(
+                      widget.news?.articles[widget.index]['content'] ?? "",
+                      style: GoogleFonts.quicksand(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Colors.white
+                      ),
+                    )
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _launchURL(widget.news?.articles[widget.index]['url']);
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(OceanTheme.timberwolf),
+                    foregroundColor: MaterialStatePropertyAll<Color>(OceanTheme.richBlack),
+                  ),
+                  child: Text(
+                      "Read full article"
+                  ),
+                )
+              ],
+            ),
           ),
         )
     );
