@@ -47,6 +47,9 @@ class _NewsScreenState extends State<NewsScreen>{
         extendBodyBehindAppBar: true,
         backgroundColor: OceanTheme.richBlack,
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: OceanTheme.timberwolf
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           systemOverlayStyle: const SystemUiOverlayStyle(
