@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:newswave/presentation/news_screen.dart';
 import 'package:newswave/services/news_service.dart';
 import '../key/api_key.dart';
 import '../model/news_model.dart';
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: NordPalette.nord0,
+      backgroundColor: NordPalette.nord4,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -69,11 +70,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Text(
-                "News",
+                "NewsWave",
                 style: GoogleFonts.comfortaa(
                     fontSize: 40,
                     fontWeight: FontWeight.w400,
-                    color: Colors.amberAccent
+                    color: NordPalette.nord0
                 ),
               ),
               Expanded(
@@ -84,29 +85,41 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
-                          Container(
-                              padding: EdgeInsets.all(15),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: NordPalette.nord4
-                              ),
-                              child: Center(
-                                  child: Row(
-                                    children: [
-                                      getStateOfURL(index),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                            _news?.articles[index]['title'] ?? "",
-                                            style: GoogleFonts.quicksand(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600
-                                            )
-                                        )
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll<Color>(NordPalette.nord0)
+                            ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => NewsScreen(news: _news, index: index,)),
+                                );
+                              },
+                              child: Container(
+                                  padding: EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: NordPalette.nord0
+                                  ),
+                                  child: Center(
+                                      child: Row(
+                                        children: [
+                                          getStateOfURL(index),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Flexible(
+                                              child: Text(
+                                                  _news?.articles[index]['title'] ?? "",
+                                                  style: GoogleFonts.quicksand(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w600,
+                                                    color: NordPalette.nord4
+                                                  )
+                                              )
+                                          )
+                                        ],
                                       )
-                                    ],
                                   )
                               )
                           ),
